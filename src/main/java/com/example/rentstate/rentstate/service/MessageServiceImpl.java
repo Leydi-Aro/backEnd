@@ -54,23 +54,7 @@ public class MessageServiceImpl implements MessageService {
                 .orElseThrow(() -> new ResourceNotFoundException(ENTITY, messageId));
     }*/
 
-    /*@Override
-    public List<MessageResponse> getByRecipient(User recipient){
-        List<Message> messages = messageRepository.findByRecipient(recipient);
-        List<MessageResponse> messageResponseList = new ArrayList<>();
-        MessageResponse messageResponse;
-        for (Message message : messages) {
-            messageResponse = new MessageResponse();
-            messageResponse.setContent(message.getContent());
-            messageResponse.setId(message.getId());
-            messageResponse.setAuthorName(
-                    message.getAuthor().getName()+" " +message.getAuthor().getLastName()
-            );
-            messageResponse.setAuthorId(message.getAuthor().getId());
-            messageResponseList.add(messageResponse);
-        }
-        return messageResponseList;
-    }*/
+
 
 
 
