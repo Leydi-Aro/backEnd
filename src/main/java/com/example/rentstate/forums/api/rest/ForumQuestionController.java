@@ -7,6 +7,7 @@ import com.example.rentstate.forums.domain.model.entities.ForumQuestion;
 import com.example.rentstate.forums.domain.service.ForumQuestionService;
 import com.example.rentstate.profiles.domain.model.aggregates.User;
 import com.example.rentstate.profiles.domain.service.UserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 @CrossOrigin(origins = {"*"})
 @RestController
 @RequestMapping(value = "/api/v1/forum-questions", produces = "application/json")
+@Tag(name = "Forum Questions", description = "Create, read and delete forum questions")
 public class ForumQuestionController {
 
     private final ForumQuestionService forumQuestionService;

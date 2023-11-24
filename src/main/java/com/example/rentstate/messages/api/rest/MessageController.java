@@ -8,6 +8,7 @@ import com.example.rentstate.profiles.api.resource.userresource.ResponseUserReso
 import com.example.rentstate.profiles.domain.model.aggregates.User;
 import com.example.rentstate.profiles.domain.service.RatingService;
 import com.example.rentstate.profiles.domain.service.UserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 @CrossOrigin(origins = {"*"})
 @RestController
 @RequestMapping(value = "/api/v1/messages", produces = "application/json")
+@Tag(name = "Messages", description = "Create, read messages")
 public class MessageController {
 
     private final MessageService messageService;

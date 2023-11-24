@@ -13,6 +13,8 @@ import com.example.rentstate.properties.domain.model.entities.Property;
 import com.example.rentstate.properties.domain.service.CommentService;
 import com.example.rentstate.properties.domain.service.PostService;
 import com.example.rentstate.properties.domain.service.PropertyService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +26,7 @@ import java.util.stream.Collectors;
 @CrossOrigin(origins = {"*"})
 @RestController
 @RequestMapping(value = "/api/v1/posts", produces = "application/json")
+@Tag(name = "Posts", description = "Create, read, update and delete posts")
 public class PostController {
     private final PostService postService;
     private final PropertyService propertyService;
@@ -37,6 +40,8 @@ public class PostController {
         this.commentService = commentService;
         this.userService = userService;
     }
+
+    @Operation(summary = "Create a post")
     @PostMapping
     public ResponseEntity<PostResponse> createPost(@RequestBody CreatePostResource createPostResource ){
         Optional<Property> property = propertyService.getById(createPostResource.getPropertyId());
@@ -58,6 +63,7 @@ public class PostController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+    @Operation(summary = "Get all posts")
     @GetMapping
     public List<PostResponse> getAll() {
         List<Post>posts = postService.getAllPosts();
@@ -67,12 +73,14 @@ public class PostController {
 
         return responseList;
     }
+    @Operation(summary = "Get post by postId")
     @GetMapping("{postId}")
     public  ResponseEntity<PostResponse> getPostById(@PathVariable Long postId){
         var post = postService.getById(postId);
         var postResponse = new PostResponse(post.get());
         return ResponseEntity.ok(postResponse);
     }
+    @Operation(summary = "Get post by authorId or lessor")
     @GetMapping("author-id/{authorId}")
     public  List<PostResponse> getPostByAuthorId(@PathVariable Long authorId){
         List<Post> posts = postService.getAllPostsByAuthor(userService.getById(authorId).get());
@@ -82,6 +90,7 @@ public class PostController {
         return  postResponseList;
     }
 
+    @Operation(summary = "Update data of post")
     @PutMapping
     public ResponseEntity<PostResponse> updatePost(@RequestBody UpdatePostResource updatePostResource){
 
@@ -93,6 +102,7 @@ public class PostController {
         PostResponse postResponse = new PostResponse(updatePost.get());
         return ResponseEntity.ok(postResponse);
     }
+    @Operation(summary = "Delete post by postId")
     @DeleteMapping("{postId}")
     public ResponseEntity<?> deletePost(@PathVariable Long postId){
         Property property = postService.getById(postId).get().getProperty();
@@ -103,6 +113,7 @@ public class PostController {
         return ResponseEntity.noContent().build();
     }
 
+    @Operation(summary = "Add comment to post")
     //comments section
     @PostMapping("/add-comment")
     public ResponseEntity<CommentResponse> addComment(@RequestBody CreateCommentResource createCommentResource){
@@ -123,6 +134,7 @@ public class PostController {
         }
     }
 
+    @Operation(summary = "Get comments of post by postId")
     @GetMapping("/comment/post-id/{postId}")
     public List<CommentResponse> getAllCommentByPostId(@PathVariable Long postId){
         Optional<Post> post = postService.getById(postId);

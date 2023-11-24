@@ -5,6 +5,7 @@ import com.example.rentstate.profiles.domain.model.aggregates.User;
 import com.example.rentstate.profiles.domain.model.entities.Rating;
 import com.example.rentstate.profiles.domain.service.RatingService;
 import com.example.rentstate.profiles.domain.service.UserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import java.util.Optional;
 @CrossOrigin(origins = {"*"})
 @RestController
 @RequestMapping(value = "/api/v1/ratings", produces = "application/json")
+@Tag(name = "Rating", description = "Create rating")
 public class RatingController {
 
     private final RatingService ratingService;

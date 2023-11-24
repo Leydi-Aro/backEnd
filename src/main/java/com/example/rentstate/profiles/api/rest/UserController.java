@@ -8,6 +8,8 @@ import com.example.rentstate.profiles.domain.model.aggregates.User;
 import com.example.rentstate.profiles.domain.model.valueobjects.Account;
 import com.example.rentstate.profiles.domain.service.RatingService;
 import com.example.rentstate.profiles.domain.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +21,7 @@ import java.util.stream.Collectors;
 @CrossOrigin(origins = {"*"})
 @RestController
 @RequestMapping(value = "/api/v1/users", produces = "application/json")
+@Tag(name = "Users", description = "Create, read, update and delete users")
 public class UserController {
 
     private final UserService userService;
@@ -31,6 +34,7 @@ public class UserController {
     }
 
 
+    @Operation(summary = "Create a user")
     @PostMapping
     public ResponseEntity<ResponseUserResource> createUser(@RequestBody CreateUserResource createUserResource) {;
         User newUser = new User(createUserResource);
@@ -45,6 +49,7 @@ public class UserController {
         }
     }
 
+    @Operation(summary = "Get all Users ")
     @GetMapping
     public List<ResponseUserResource> getAllUsers() {
         List<User> users = userService.getAll();
@@ -55,6 +60,7 @@ public class UserController {
         return responseUsers;
     }
 
+    @Operation(summary = "Get User By UserId")
     @GetMapping("{userId}")
     public ResponseEntity<ResponseUserResource> getUserById(@PathVariable Long userId) {
         Optional<User> user = userService.getById(userId);
@@ -64,6 +70,7 @@ public class UserController {
         return ResponseEntity.ok(userResponse);
     }
 
+    @Operation(summary = "Update data of User")
     @PutMapping
     public ResponseEntity<ResponseUserResource> updateUser(@RequestBody UpdateUserResource updateUserResource) {
 
@@ -78,13 +85,14 @@ public class UserController {
         return ResponseEntity.ok(userResponse);
     }
 
+    @Operation(summary = "Delete user by UserId")
     @DeleteMapping("{userId}")
     public ResponseEntity<?> deleteUser(@PathVariable Long userId) {
         userService.delete(userId);
         return ResponseEntity.noContent().build();
     }
 
-
+    @Operation(summary = "Create User with login")
     @PostMapping("/login")
     public ResponseEntity<ResponseUserResource> login(@RequestBody LoginCredential loginCredential) {
 

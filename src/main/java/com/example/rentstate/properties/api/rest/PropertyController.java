@@ -8,6 +8,7 @@ import com.example.rentstate.properties.domain.service.PostService;
 import com.example.rentstate.properties.domain.service.PropertyService;
 import com.example.rentstate.profiles.domain.model.aggregates.User;
 import com.example.rentstate.profiles.domain.service.UserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,7 @@ import java.util.stream.Collectors;
 @RestController
 @AllArgsConstructor
 @RequestMapping(value = "/api/v1/properties", produces = "application/json")
+@Tag(name = "Properties", description = "Create, read, update and delete properties")
 public class PropertyController {
     private final PropertyService propertyService;
     private final UserService userService;
