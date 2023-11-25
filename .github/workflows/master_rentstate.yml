@@ -50,4 +50,4 @@ jobs:
           app-name: 'rentstate'
           slot-name: 'Production'
           package: '*.jar'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9E24D85C087549C2B2175ECAD9DCA919 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_28C0F0B147954504AD1924228B80C8CC }}
